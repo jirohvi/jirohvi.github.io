@@ -1,35 +1,325 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <!-- CRITICAL FOR MOBILE: This makes the website adjust to mobile screen widths -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Mobile Website</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f9;
-            color: #333;
-            text-align: center;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        h1 { color: #24292e; }
-        p { line-height: 1.6; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Performance Tasks</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f4f8;
+      color: #222;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 750px;
+      margin: 30px auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #273c75;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .progress-box {
+      background: white;
+      padding: 18px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 10px #00000010;
+    }
+
+    progress {
+      width: 100%;
+      height: 12px;
+      accent-color: #273c75;
+    }
+
+    .task {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px #00000010;
+      border-left: 5px solid #273c75;
+    }
+
+    .task.completed {
+      border-left-color: #27ae60;
+    }
+
+    .task h2 {
+      font-size: 18px;
+      margin-top: 0;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 7px 0 12px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font: inherit;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 75px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .status input {
+      width: auto;
+      margin: 0;
+    }
+
+    .status label {
+      font-weight: normal;
+    }
+
+    .task.completed h2 {
+      color: #27ae60;
+    }
+
+    .save-status {
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      margin: 20px;
+    }
+
+    button {
+      display: block;
+      margin: 15px auto;
+      padding: 12px 20px;
+      background: #273c75;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #192a56;
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 12px;
+      }
+
+      .container {
+        margin: 10px auto;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Welcome to My Mobile Site!</h1>
-        <p>Built completely on a mobile device and hosted for free via GitHub Pages.</p>
+  <div class="container">
+    <h1>My Performance Tasks</h1>
+    <p class="subtitle">Organize your school requirements in one place.</p>
+
+    <div class="progress-box">
+      <strong id="progress-text">0 of 5 tasks completed</strong>
+      <progress id="progress-bar" value="0" max="5"></progress>
     </div>
+
+    <div id="tasks"></div>
+
+    <p class="save-status" id="save-status">
+      Your changes are saved automatically.
+    </p>
+
+    <button onclick="exportTasks()">Download My Tasks</button>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "myPerformanceTasks";
+
+    const defaults = Array.from({ length: 5 }, (_, i) => ({
+      title: `Performance Task ${i + 1}`,
+      description: "",
+      deadline: "",
+      completed: false
+    }));
+
+    let tasks = loadTasks();
+
+    function loadTasks() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+        if (!Array.isArray(saved)) return defaults;
+
+        return defaults.map((task, i) => ({
+          ...task,
+          ...(saved[i] && typeof saved[i] === "object"
+            ? saved[i]
+            : {})
+        }));
+      } catch {
+        return defaults;
+      }
+    }
+
+    function saveTasks() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+        document.getElementById("save-status").textContent =
+          "✓ Changes saved automatically in this browser.";
+      } catch {
+        document.getElementById("save-status").textContent =
+          "Saving failed. Download a backup of your tasks.";
+      }
+
+      updateProgress();
+    }
+
+    function renderTasks() {
+      const container = document.getElementById("tasks");
+      container.innerHTML = "";
+
+      tasks.forEach((task, i) => {
+        const card = document.createElement("div");
+        card.className = "task" + (task.completed ? " completed" : "");
+
+        const heading = document.createElement("h2");
+        heading.textContent = `Task ${i + 1}`;
+
+        const titleLabel = document.createElement("label");
+        titleLabel.textContent = "Task Title";
+
+        const title = document.createElement("input");
+        title.type = "text";
+        title.value = task.title;
+        title.placeholder = "Enter task title";
+
+        const descLabel = document.createElement("label");
+        descLabel.textContent = "Description / Instructions";
+
+        const description = document.createElement("textarea");
+        description.value = task.description;
+        description.placeholder = "Write your task instructions here...";
+
+        const dateLabel = document.createElement("label");
+        dateLabel.textContent = "Deadline";
+
+        const deadline = document.createElement("input");
+        deadline.type = "date";
+        deadline.value = task.deadline;
+
+        const status = document.createElement("div");
+        status.className = "status";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = task.completed;
+        checkbox.id = `completed-${i}`;
+
+        const statusLabel = document.createElement("label");
+        statusLabel.htmlFor = checkbox.id;
+        statusLabel.textContent = "Mark as completed";
+
+        status.append(checkbox, statusLabel);
+
+        title.addEventListener("input", () => {
+          tasks[i].title = title.value;
+          saveTasks();
+        });
+
+        description.addEventListener("input", () => {
+          tasks[i].description = description.value;
+          saveTasks();
+        });
+
+        deadline.addEventListener("change", () => {
+          tasks[i].deadline = deadline.value;
+          saveTasks();
+        });
+
+        checkbox.addEventListener("change", () => {
+          tasks[i].completed = checkbox.checked;
+          saveTasks();
+          card.classList.toggle("completed", checkbox.checked);
+          heading.style.color = checkbox.checked ? "#27ae60" : "";
+        });
+
+        card.append(
+          heading,
+          titleLabel, title,
+          descLabel, description,
+          dateLabel, deadline,
+          status
+        );
+
+        container.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const completed = tasks.filter(t => t.completed).length;
+
+      document.getElementById("progress-text").textContent =
+        `${completed} of 5 tasks completed`;
+
+      document.getElementById("progress-bar").value = completed;
+    }
+
+    function exportTasks() {
+      const content = tasks.map((task, i) => {
+        return [
+          `Performance Task ${i + 1}`,
+          `Title: ${task.title}`,
+          `Description: ${task.description}`,
+          `Deadline: ${task.deadline || "Not set"}`,
+          `Status: ${task.completed ? "Completed" : "Pending"}`,
+          ""
+        ].join("\n");
+      }).join("\n------------------------\n\n");
+
+      const blob = new Blob([content], {
+        type: "text/plain;charset=utf-8"
+      });
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "my-performance-tasks.txt";
+      link.click();
+
+      URL.revokeObjectURL(url);
+    }
+
+    renderTasks();
+  </script>
 </body>
 </html>
