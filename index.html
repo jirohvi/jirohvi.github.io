@@ -38,3 +38,178 @@ a{color:inherit;text-decoration:none}
 /* hero */
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:96px 7vw 120px;overflow:hidden;background:linear-gradient(112deg,transparent 52%,rgba(10,77,255,.5) 52.2%,transparent 72%),radial-gradient(ellipse at 78% 28%,rgba(10,77,255,.45),transparent 60%),repeating-linear-gradient(90deg,rgba(71,176,255,.05) 0 1px,transparent 1px 60px),var(--bg)}
 .hero.sm{min-height:0;padding:130px 7vw 50px}
+.tate{position:absolute;right:4vw;top:84px;writing-mode:vertical-rl;font:800 italic clamp(3rem,13vw,9rem)/1 var(--d);letter-spacing:.08em;color:transparent;-webkit-text-stroke:1.5px rgba(71,176,255,.5);user-select:none}
+h1{position:relative;font:800 italic clamp(3.2rem,15vw,9rem)/.9 var(--d);letter-spacing:.02em;animation:in .9s both}
+.tag{position:relative;margin-top:16px;color:var(--mu);font-size:1.1rem}
+.term{position:relative;margin-top:22px;display:flex;align-items:center;gap:14px;font:700 1.05rem var(--d);letter-spacing:.18em}
+.term b{font:800 italic clamp(1.8rem,6vw,2.8rem) var(--d);color:var(--cy);letter-spacing:.06em}
+.go{position:relative;margin-top:34px;display:inline-flex;align-items:center;gap:16px;font:700 1rem var(--d);letter-spacing:.16em}
+.go span{display:grid;place-items:center;width:84px;height:84px;flex:none;border:2px solid var(--cy);border-radius:50%;font-size:1.5rem;transition:background .25s,box-shadow .25s}
+.go:hover span{background:var(--bl);box-shadow:0 0 30px var(--bl)}
+.sd{position:absolute;left:7vw;bottom:26px;display:flex;align-items:center;gap:12px;background:none;border:0;color:#fff;font:700 .8rem var(--d);letter-spacing:.3em;cursor:pointer}
+.sd::after{content:"";width:1px;height:54px;background:linear-gradient(var(--cy),transparent);animation:sc 1.8s infinite}
+@keyframes in{from{opacity:0;transform:translateX(-30px) skewX(-8deg)}}
+@keyframes sc{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* sections */
+.sec{max-width:1100px;margin:0 auto;padding:80px 7vw}
+.h2{display:flex;align-items:center;gap:14px;margin-bottom:34px;font:800 italic clamp(2.2rem,8vw,3.6rem)/1 var(--d);letter-spacing:.05em}
+.h2::before{content:"";width:14px;height:1em;flex:none;background:var(--bl);transform:skewX(-20deg);box-shadow:0 0 18px var(--bl)}
+.q{padding-left:22px;border-left:6px solid var(--bl);font:800 italic clamp(1.8rem,6.5vw,3.2rem)/1.15 var(--d);letter-spacing:.02em}
+.q cite{display:block;margin-top:14px;font:700 1rem var(--d);letter-spacing:.24em;color:var(--cy)}
+.grid{display:grid;gap:18px}
+@media(min-width:700px){.grid{grid-template-columns:1fr 1fr}}
+.card{position:relative;display:block;padding:34px 60px 30px 30px;border-left:6px solid var(--bl);background:linear-gradient(135deg,#07123a,#0a2a9a 160%);clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,0 100%);transition:transform .25s,background .25s}
+.card:hover{transform:translateY(-4px);background:linear-gradient(135deg,#0a1a52,var(--bl) 180%)}
+.card::after{content:"▸";position:absolute;right:22px;bottom:16px;color:var(--cy);font-size:1.5rem}
+.card h3{font:800 italic 1.9rem/1.1 var(--d);letter-spacing:.05em}
+.card p{margin-top:6px;color:var(--mu)}
+.hint{margin-top:26px;color:var(--mu)}
+.about p{max-width:60ch;margin-bottom:16px;color:#dbe6ff}
+.about h3{margin:28px 0 8px;font:800 italic 1.6rem var(--d);letter-spacing:.05em;color:var(--cy)}
+.staff{margin-top:40px;border-top:1px solid var(--line)}
+.staff div{display:grid;grid-template-columns:8.5rem 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.staff dt{font:700 .85rem var(--d);letter-spacing:.2em;color:var(--cy)}
+.staff dd{font:700 1.15rem var(--d);letter-spacing:.06em}
+
+/* footer */
+.ft{padding:60px 7vw 40px;text-align:center;border-top:1px solid var(--line);background:linear-gradient(transparent,#040a2a)}
+.ft .logo{font-size:1.8rem}
+.ft small{display:block;margin-top:14px;color:var(--mu);font-size:.85rem;letter-spacing:.06em}
+.ft .th{margin-top:18px;font:700 .8rem var(--d);letter-spacing:.3em;color:var(--cy)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+</style>
+<noscript><style>[hidden]{display:block!important}.ov{display:none}</style></noscript>
+</head>
+<body>
+
+<header class="hd">
+  <a class="logo" href="#home">MY PORTFOLIO</a>
+  <nav class="dn" aria-label="Main">
+    <a data-nav href="#home">HOME</a>
+    <a data-nav href="#portfolio">PORTFOLIO</a>
+    <a data-nav href="#about">ABOUT</a>
+  </nav>
+  <button class="mb" type="button" aria-expanded="false" aria-controls="ov">MENU<i></i></button>
+</header>
+
+<div class="ov" id="ov">
+  <button class="x" type="button">CLOSE ✕</button>
+  <a data-nav href="#home">HOME</a>
+  <a data-nav href="#portfolio">PORTFOLIO</a>
+  <a data-nav href="#about">ABOUT</a>
+</div>
+
+<main>
+
+  <!-- HOME -->
+  <section class="page" id="home">
+    <div class="hero">
+      <div class="tate" aria-hidden="true">MY PORTFOLIO</div>
+      <h1>MY FOLDER</h1>
+      <p class="tag">A collection of my work and creativity.</p>
+      <p class="term"><b>2ND TERM</b>EMTECH PERFORMANCE TASKS</p>
+      <a class="go" href="#portfolio"><span>▶</span>EXPLORE MY PERFORMANCE TASKS</a>
+      <button class="sd" type="button" data-scroll="intro">SCROLL DOWN</button>
+    </div>
+    <div class="sec" id="intro">
+      <blockquote class="q">“Without ego, you’ll never become the best.”<cite>— EGO JINPACHI</cite></blockquote>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="page" id="portfolio" hidden>
+    <div class="hero sm">
+      <div class="tate" aria-hidden="true">MY PORTFOLIO</div>
+      <h1>MY FOLDER</h1>
+      <p class="tag">A collection of my work and creativity.</p>
+      <p class="term"><b>2ND TERM</b>EMTECH PERFORMANCE TASKS</p>
+    </div>
+    <div class="sec">
+      <h2 class="h2">MY PERFORMANCE TASKS</h2>
+      <div class="grid">
+        <!-- Paste your 4 Google Drive links below (search this file for PASTE_) -->
+        <a class="card" href="https://drive.google.com/PASTE_EXCEL_LINK_HERE" target="_blank" rel="noopener noreferrer" title="Open in Google Drive">
+          <h3>01 ❖ EXCEL</h3><p>Financial Dashboard</p>
+        </a>
+        <a class="card" href="https://drive.google.com/PASTE_POWERPOINT_LINK_HERE" target="_blank" rel="noopener noreferrer" title="Open in Google Drive">
+          <h3>02 ❖ POWERPOINT</h3><p>Mini Presentation</p>
+        </a>
+        <a class="card" href="https://drive.google.com/PASTE_GRAPHIC_DESIGN_LINK_HERE" target="_blank" rel="noopener noreferrer" title="Open in Google Drive">
+          <h3>03 ❖ GRAPHIC DESIGN</h3><p>Design With Purpose</p>
+        </a>
+        <a class="card" href="https://drive.google.com/PASTE_INFOGRAPHICS_LINK_HERE" target="_blank" rel="noopener noreferrer" title="Open in Google Drive">
+          <h3>04 ❖ INFOGRAPHICS</h3><p>Sales Data</p>
+        </a>
+      </div>
+      <p class="hint">Select a file to explore my work.</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="page" id="about" hidden>
+    <div class="hero sm">
+      <div class="tate" aria-hidden="true">MY PORTFOLIO</div>
+      <h1>ABOUT</h1>
+    </div>
+    <div class="sec about">
+      <h2 class="h2">ABOUT MY FOLDER</h2>
+      <h3>Ego and Effort</h3>
+      <p>Welcome! This folder holds my EMTECH performance tasks for the second term: a financial dashboard, a mini presentation, a graphic design and an infographic. Each file is one piece of the bigger picture of what I can do with digital tools.</p>
+      <p>In Blue Lock, every striker fights to prove he is the best on the field. In this folder, every output is my own shot at goal. Like Isagi Yoichi, I keep learning, adapting and leveling up with every task.</p>
+      <blockquote class="q" style="margin:34px 0">“Without ego, you’ll never become the best.”<cite>— EGO JINPACHI</cite></blockquote>
+      <p>His words remind me to trust my ideas, work with confidence and never settle for average. Just like puzzle pieces, my four tasks fit together to show how far I have grown.</p>
+      <dl class="staff">
+        <div><dt>NAME</dt><dd>RAIN JIROH C. POLICARPIO</dd></div>
+        <div><dt>SECTION</dt><dd>12-ZARA</dd></div>
+        <div><dt>SUBJECT</dt><dd>EMPOWERMENT TECHNOLOGIES</dd></div>
+        <div><dt>TERM</dt><dd>2ND TERM</dd></div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<footer class="ft">
+  <a class="logo" href="#home">MY PORTFOLIO</a>
+  <p class="th">BLUE LOCK THEME</p>
+  <small>Rain Jiroh C. Policarpio 12-ZARA</small>
+</footer>
+
+<script>
+(function () {
+  var pages = ['home', 'portfolio', 'about'], cur = '';
+  var hd = document.querySelector('.hd'), ov = document.getElementById('ov'), mb = document.querySelector('.mb');
+  function menu(open) {
+    ov.classList.toggle('open', open);
+    mb.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  function route() {
+    var h = location.hash.replace('#', '');
+    var id = pages.indexOf(h) > -1 ? h : (cur || 'home');
+    pages.forEach(function (p) { document.getElementById(p).hidden = (p !== id); });
+    document.querySelectorAll('[data-nav]').forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('on', on);
+      if (on) { a.setAttribute('aria-current', 'page'); } else { a.removeAttribute('aria-current'); }
+    });
+    if (id !== cur) { window.scrollTo(0, 0); }
+    cur = id;
+    menu(false);
+  }
+  mb.addEventListener('click', function () { menu(true); });
+  ov.querySelector('.x').addEventListener('click', function () { menu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { menu(false); } });
+  document.querySelectorAll('[data-scroll]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.getElementById(b.getAttribute('data-scroll')).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  window.addEventListener('scroll', function () { hd.classList.toggle('solid', window.scrollY > 40); }, { passive: true });
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+</body>
+</html>
